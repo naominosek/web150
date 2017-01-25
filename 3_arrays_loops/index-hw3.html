@@ -1,0 +1,57 @@
+<html>
+    
+    <p>Homework 3:</p>
+    <p>List names with scores in Alphabethical Order</p>
+    
+    
+ <!--
+    Instructions:
+    var grades = "jim|25, sue|32, mary|34, ann|22, ted|28, frank|15, lisa|19, mike|30, ahn|26, vishaya|27";
+
+Using the above data on student test scores, write a javascript program to display scores in a readable format like so:
+
+- display score for each student in alphabetical order like so with first letter of student name capitalized:
+
+Name1 - score1
+Name2 - score2
+ 
+
+- display total # of students,
+
+- display the minimum, maximum, and average scores
+-->
+    
+    <script>
+        var grades = "Jim|25, Sue|32, Mary|34, Ann|22, Ted|28, Frank|15, Lisa|19, Mike|30, Ahn|26, Vishaya|27";
+        var students = grades.split(", ");//this splits each inbetween ", "
+
+        students.sort(); //sorts student names in alphabetical order
+        var total = 0; //total += studentScore
+        var minScore = 100;
+        var maxScore = 0;
+        
+        for (var pos in students) { //for each position in students
+            var studentInfo = students[pos].split("|");
+            document.write("<li>" + studentInfo[0] + " - " + studentInfo[1]);  //splits name of student and their score with "|" inbetween
+            
+            var studentScore = parseInt(studentInfo[1]);//parseInt - to change from string to an integer
+            total += studentScore;
+            
+                if (studentScore > maxScore) {
+                    maxScore = studentScore;
+                }
+                if (studentScore < minScore) {
+                    minScore = studentScore;
+                }
+         }
+        
+        //to display the total, min, max and average.
+            document.write("<br>Total Students: " + students.length)
+            document.write("<br>Minimum Score: " + minScore);
+            document.write("<br>Maximum Score: " + maxScore);
+            document.write("<br>Average Score: " + total/students.length)
+
+    </script>
+    
+    
+</html>        
