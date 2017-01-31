@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+</head>
+<body>
+
+<h1>Functions & Validation</h1>
+
+<form id="form1" action="#" onsubmit="return validateForm(this);">
+  first name: <input type="text" name="firstname"><br>
+  last name: <input type="text" name="lastname"><br>
+  password: <input type="text" name="password"><br>
+
+  <button >Check</button>
+</form>
+
+<hr><div id="message"></div>
+
+<script>
+//this function is to validate the first and last name to make sure it is not left empty and to show an error message.
+function validateForm(myForm) {
+    var firstname = myForm.firstname.value; // get text of firstname field   
+    var lastname = myForm.lastname.value;
+    var password = myForm.password.value;
+    
+        if (firstname.length == 0) {
+        // use this syntax to update 'message' DIV with appropriate wording
+            $("#message").html("Error: Name must be filled out."); 
+        }
+
+        else if (lastname.length == 0) {
+        // use this syntax to update 'message' DIV with appropriate wording
+            $("#message").html("Error: Name must be filled out."); 
+            
+        }  
+        else if (!validatePassword(password)){
+            $("#message").html("Error: Please enter a valid password.");
+        }
+        else {
+            $("#message").html("Congrats! It was a success.");
+        }
+    
+    return false; // prevent page reload
+}
+    
+    //this function is to valiate the password
+    function validatePassword(password) {
+        var containsLower = /[a-z]/;
+        var containsUpper = /[A-Z]/;
+        
+        if (password.length < 8) {
+            return false;  
+        } else if (!containsUpper.test(password)) {
+            $("#message").html("Error: Please enter one uppercase letter.");
+        } else if (!containsLower.test(password)) {
+            $("#message").html("Error: Please enter one lowercase letter.");
+        } else {
+            return true;
+        }
+    }
+
+  
+ 
+    
+    
+//notes: going to create several diff conditions. a seperate function for the password validation. 
+</script>
+
+</body>
+</html> 
