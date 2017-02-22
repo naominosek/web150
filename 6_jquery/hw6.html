@@ -1,0 +1,167 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </head>
+    <style>
+        table, tr {
+            border: 1px solid black;
+        }
+        
+        tr#header {
+            position: fixed;
+        }
+        td {
+            position: relative;
+            /*top: 25px;
+            display: inline-block;*/
+        }
+        
+        .over {
+            background-color: orange;
+        }
+        .selected {
+            background-color: green;
+        }
+        
+    </style>
+
+    <body>
+    
+    <div id="buttons"></div>
+        <button id="btnGryffindor">Gryffindor</button>
+        <button id="btnSlytherin">Slytherin</button>
+        <button id="btnHufflepuff">Hufflepuff</button>
+        <button id="btnRavenclaw">Ravenclaw</button>
+        <button id="reset" type="reset">Reset</button>
+     
+        
+        
+        <div id="roles"></div>
+        
+        <table border='1'>
+            <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>House</th>
+                <th>Gender</th>
+                <th>Aligns</th>
+            <tr>
+        </table>
+        
+    </body>
+        
+        <script>
+        // list of characters
+        var characters = [
+        {name:"Albus Dumbledore", role:"staff", house:"Gryffindor",gender:"m",alignment:"good"},    
+        {name:"Nymphadora Tonks", role:"", house:"Hufflepuff",gender:"f",alignment:"good"},    
+        {name:"Ron Weasley", role:"student", house:"Gryffindor",gender:"m",alignment:"good"},    
+        {name:"Ginny Weasley", role:"student", house:"Gryffindor",gender:"f",alignment:"good"},    
+        {name:"Hermione Granger", role:"student", house:"Gryffindor",gender:"f",alignment:"good"},    
+        {name:"Mad-eye Moody", role:"staff", house:"",gender:"m",alignment:"good"},    
+        {name:"Prof McGonagall", role:"staff", house:"Gryffindor",gender:"f",alignment:"good"},    
+        {name:"Harry Potter", role:"student", house:"Gryffindor",gender:"m",alignment:"good"},    
+        {name:"Draco Malfoy", role:"student", house:"Slytherin",gender:"m",alignment:"evil"},    
+        {name:"Hagrid", role:"staff", house:"Gryffindor",gender:"m",alignment:"good"},    
+        {name:"Luna Lovegood", role:"student", house:"Ravenclaw",gender:"f",alignment:"good"},    
+        {name:"Voldemort", role:"", house:"Slytherin",gender:"m",alignment:"evil"},    
+        {name:"Bellatrix Lestrange", role:"", house:"Slytherin",gender:"f",alignment:"evil"},           
+        {name:"Severus Snape", role:"staff", house:"Slytherin",gender:"m",alignment:"?"},    
+        {name:"Dobby", role:"", house:"",gender:"?",alignment:"good"}
+        ]; 
+            
+        $(document).ready(function(){
+            var houses = [];
+ 
+            for (var row in characters) {
+                $("table").append("<tr><td>" + characters[row].name + "</td><td>" + characters[row].role + "</td><td>" + characters[row].house + "</td><td>" + characters[row].gender + "</td><td>" + characters[row].alignment + "</td></tr>");
+
+                var currentHouse = characters[row].house;
+                    if (houses.indexOf(currentHouse) == -1) {
+                        houses.push(currentHouse);
+                    } 
+                //$("#button").append("<button>" + house + "<button>")
+            }
+            
+        $(document).ready(function(){
+            //grey background for every odd row with jquery
+            $("tr:odd").css("background-color", "#C0C0C0");
+            $("tr:even").css("background-color", "#ffffff");
+        });
+            
+     
+                var buttons = $('button');
+
+                buttons.on('mouseenter', function(e) {
+                    var $this = $(this);
+                    $this.addClass("over");
+                });
+
+                buttons.on('mouseleave', function() {
+                    var $this = $(this);
+                    $this.removeClass("over");
+                });
+
+                buttons.on('click', function() {
+                    //console.log($(this))
+                    $(".selected").removeClass("selected");
+                    $(this).addClass("selected");
+                    toggleRows($(this).text());
+                });
+
+            function toggleRows(text) {
+                    var rows = $("table").find("tr:not(:has(th:contains)("+text+")))").slice(1);
+                    //var rows = $("tr:not(:contains(" + text + "))");
+                    $("tr").removeClass("odd");
+                    rows.toggle().promise().done(function(){
+                        $("tr:visible:odd").addClass("odd");
+                    });
+               
+            }
+            
+            });//ENDING
+            
+                   // table.on("click", function() {
+                       //var $this = $(this); //refers to the object being clicked
+                            
+                
+                    
+                    
+                    
+            
+            
+            
+            
+            
+           /* 
+           from assignment page:
+           <OBJECT>.on('click', function() {
+  var $this = $(this); // refers to the object being clicked
+  // add code to execute when object is clicked
+ });
+           */ 
+        
+       
+            
+            
+            
+       /*hard coded buttons     
+            
+             // add functionality to hide/show rows when button clicked
+                $("#btnGryffindor").on("click", function() {
+                    $("tr").hide();//hide all tr then....
+                    $("tr:contains(Gryffindor)").show();//any row containing "gryffindor" must show
+                           //shows header of table!!!!!!!!!
+                    $("tr").css("background-color", "yellow");//bg color of <tr>
+                });
+                
+                //to reset the table with jquery
+                $(":reset").on("click", function(){
+                    $("tr").show();
+                    $("tr:even").css("background-color", "grey");
+                    $("tr:odd").css("background-color", "grey");
+                });
+            */
+            
+        </script>
+</html>
