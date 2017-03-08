@@ -63,8 +63,11 @@ For phishing scams by phone, fax or mail, call 1-800-366-4484.
             $("#answers").append("<br>All IRS forms & publications: " + forms);
             
             //- Update all web addresses to clickable urls by adding 'http://'
-            var links = str.match(/(|www.)[a-zA-Z]+\.[a-z]+/gi);     
-            $("#content").html(str.replace(links, "<a href='http://" + links + "'>" + "</a>"));
+             var links = str.match(/\w+\.{1}[a-zA-Z]{3}/g);     
+                for(i=0; i<links.length; i++){
+                    str = str.replace(links[i], "<a href='http://" + links[i] + "'>" + links[i] + "</a>");
+                }
+              $("#content").html(str);
         
         });//end of function      
 
