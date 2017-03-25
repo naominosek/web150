@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        
+    </head>
+    <body>
+   <h1>Weather Forecast!</h1>   
+        
+    <p>Please enter a U.S. city:</p><br>
+    <form id="form" action="#" onsubmit="return">
+  City name: <input type="text" name="cityName">
+
+  <button>Click</button>
+</form>
+
+<hr><div id="message"></div>    
+  
+<div id="container">
+   
+</div>
+
+
+    <script>
+$("button").click(function(e){
+e.preventDefault();
+console.log("clicked");               
+        
+console.log($(":text").val());
+var city = $(":text").val();
+var URL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + ",US&APPID=19c1c7055d3c79996b77155a82f3d6b2&units=imperial";
+
+//var forecast_date = new Date("2017-03-10 06:00:00");
+ 
+$.getJSON(URL,function(response,status) {
+  if (status == "success") {
+        console.log(response);
+        data = response
+        for (i=0; i<data.list.length; i+= 8) {
+           // console.log(data.list[i].dt_txt)
+            $("#container").append("<li>Date: " + new Date(data.list[i].dt_txt))
+            $("#container").append("<li>Min Temp: " + data.list[i].main.temp_min)
+            $("#container").append("<li>Max Temp: " + data.list[i].main.temp_max)
+            $("#container").append("<li>Humidity: " + data.list[i].main.humidity)
+            $("#container").append("<li>Description: " + data.list[i].weather[0].description)
+            $("#container").append("<img src=http://openweathermap.org/img/w/"+data.list[i].weather[0].icon+".png>");  
+            $("#container").append("<hr>")
+        }
+  } else {
+    // request failed
+    //$("#").html("Sorry, Try again later!")
+  }
+});//end of $.get
+        
+});//end of click  
+        
+        
+  
+
+
+
+//weather image: http://openweathermap.org/img/w/10n.png
+        
+</script>
+</body>
+</html>
